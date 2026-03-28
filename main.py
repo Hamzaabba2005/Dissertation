@@ -7,11 +7,11 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, models
 
-DEVICE = "mps" if torch.cuda.is_available() else "cpu"
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 LABEL_COLS = ["N","D","G","C","A","H","M","O"]
-BASE_PATH = "/Users/hamzaabba/Documents/Dissertation/data/ODIR-5K"
-CSV_PATH = os.path.join(BASE_PATH, "/Users/hamzaabba/Documents/Dissertation/data/full_df.csv")
-IMAGES_DIR = os.path.join(BASE_PATH, "/Users/hamzaabba/Documents/Dissertation/data/preprocessed_images")
+BASE_PATH = "/Users/hamzaabba/Documents/Dissertation/data"
+CSV_PATH = os.path.join(BASE_PATH, "full_df.csv")
+IMAGES_DIR = os.path.join(BASE_PATH, "preprocessed_images")
 
 print("CSV exists:", os.path.exists(CSV_PATH))
 print("Images dir exists:", os.path.exists(IMAGES_DIR))
@@ -119,8 +119,8 @@ class ODIRDataset(Dataset):
 train_ds = ODIRDataset(train_samples, train_tfm)
 val_ds = ODIRDataset(val_samples, val_tfm)
 
-train_loader = DataLoader(train_ds, batch_size=32, shuffle=True, num_workers=2, pin_memory=True)
-val_loader = DataLoader(val_ds, batch_size=64, shuffle=False, num_workers=2, pin_memory=True)
+train_loader = DataLoader(train_ds, batch_size=32, shuffle=True, num_workers=0, pin_memory=False)
+val_loader = DataLoader(val_ds, batch_size=64, shuffle=False, num_workers=0, pin_memory=False)
 
 len(train_ds), len(val_ds)
 
@@ -186,6 +186,7 @@ for epoch in range(1, 20):
     print(f"Epoch {epoch:02d} | train loss {tr_loss:.4f} acc {tr_acc:.4f} | val loss {va_loss:.4f} acc {va_acc:.4f}")
 
 
-os.makedirs("/working/checkpoints", exist_ok=True)
-torch.save(model.state_dict(), "/working/checkpoints/resnet18_odir_multilabel.pt")
+checkpoint_dir = os.path.join(os.path.dirname(__file__), "checkpoints")
+os.makedirs(checkpoint_dir, exist_ok=True)
+torch.save(model.state_dict(), os.path.join(checkpoint_dir, "resnet18_odir_multilabel.pt"))
 print("Saved.")
