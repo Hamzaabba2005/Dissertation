@@ -16,3 +16,4 @@ def patient_level_split(samples, val_size=0.2, seed=42):
     val_samples = [samples[i] for i in val_idx]
 
     return train_samples, val_samples
+
