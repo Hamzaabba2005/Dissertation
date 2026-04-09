@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from torchvision import models
 
+
 class CustomCNN(nn.Module):
     def __init__(self, num_labels=8, dropout=0.3):
         super().__init__()
@@ -40,6 +41,25 @@ class CustomCNN(nn.Module):
         return x
 
 
+def freeze_backbone(model, model_name):
+    """Freeze all backbone layers, leaving only the classifier head trainable."""
+    model_name = model_name.lower()
+    if model_name in ("resnet18", "resnet50"):
+        for name, param in model.named_parameters():
+            if not name.startswith("fc"):
+                param.requires_grad = False
+    elif model_name == "efficientnet_b0":
+        for name, param in model.named_parameters():
+            if not name.startswith("classifier"):
+                param.requires_grad = False
+
+
+def unfreeze_backbone(model):
+    """Unfreeze all layers for full fine-tuning."""
+    for param in model.parameters():
+        param.requires_grad = True
+
+
 def build_model(model_name, num_labels=8, dropout=0.3, pretrained=True):
     model_name = model_name.lower()
 
@@ -51,6 +71,7 @@ def build_model(model_name, num_labels=8, dropout=0.3, pretrained=True):
             nn.Dropout(dropout),
             nn.Linear(in_features, num_labels)
         )
+        freeze_backbone(model, model_name)
         return model
 
     if model_name == "resnet50":
@@ -61,6 +82,7 @@ def build_model(model_name, num_labels=8, dropout=0.3, pretrained=True):
             nn.Dropout(dropout),
             nn.Linear(in_features, num_labels)
         )
+        freeze_backbone(model, model_name)
         return model
 
     if model_name == "efficientnet_b0":
@@ -71,6 +93,7 @@ def build_model(model_name, num_labels=8, dropout=0.3, pretrained=True):
             nn.Dropout(dropout),
             nn.Linear(in_features, num_labels)
         )
+        freeze_backbone(model, model_name)
         return model
 
     if model_name == "custom_cnn":
