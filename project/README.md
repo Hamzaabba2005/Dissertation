@@ -11,37 +11,6 @@ Normal, Diabetes, Glaucoma, Cataract, AMD, Hypertension, Myopia, Other
 - ResNet-50
 - Custom CNN
 
-## Project Structure
-project/
-    notebooks/
-        EfficientNet-B0.ipynb
-        ResNet18.ipynb
-        ResNet50.ipynb
-        CustomCNN.ipynb
-        comparison.ipynb
-    src/
-        auto_detect.py
-        build_samples.py
-        class_weights.py
-        config.py
-        dataset.py
-        model.py
-        patient_level_split.py
-        reproducibility.py
-        thresholds.py
-        transforms_config.py
-    checkpoints/
-        resnet50_outputs/
-        efficientnetb0_outputs/
-        resnet18_outputs/
-        
-    data/
-    ODIR-5K/
-    full_df.csv
-    preprocessed_images/
-    requirements.txt
-    README.md
-
 ## Dataset
 ODIR-5K (Ocular Disease Intelligent Recognition) — 5000 patient fundus images labelled across 8 disease categories.
 
