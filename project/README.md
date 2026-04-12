@@ -98,7 +98,4 @@ seaborn
 Pillow
 scikit-learn
 
-## AI Usage
-Claude was used to assist with debugging. Prompts and outputs are documented in the appendix of the written report.
-
 ## OneDrive
