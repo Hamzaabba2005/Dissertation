@@ -27,7 +27,6 @@ ResNet18.ipynb
 ResNet50.ipynb
 CustomCNN.ipynb
 comparison.ipynb
-project/
 src/
 config.py
 reproducibility.py
