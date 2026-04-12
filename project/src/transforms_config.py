@@ -4,15 +4,15 @@ from torchvision import transforms
 def get_transforms(img_size):
     
     train_tfm = transforms.Compose([
-        transforms.Resize((img_size + 32, img_size + 32)),  # slightly larger before crop
+        transforms.Resize((img_size + 32, img_size + 32)),  
         transforms.RandomResizedCrop(img_size, scale=(0.75, 1.0)),  # much more aggressive zoom
         transforms.RandomHorizontalFlip(p=0.5),
         transforms.RandomVerticalFlip(p=0.5),              # safe for fundus
-        transforms.RandomRotation(degrees=30),              # fundus is rotation-invariant
+        transforms.RandomRotation(degrees=30),             # fundus is rotation-invariant
         transforms.ColorJitter(
-            brightness=0.3,                                 # up from 0.1
-            contrast=0.3,                                   # up from 0.1
-            saturation=0.2,                                 # up from 0.03
+            brightness=0.3,                                 
+            contrast=0.3,                                   
+            saturation=0.2,                                 
             hue=0.02,                                       # keep small — hue shifts can mislead
         ),
         transforms.RandomGrayscale(p=0.05),                # occasional grayscale, helps generalisation
