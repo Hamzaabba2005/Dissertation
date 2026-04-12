@@ -2,7 +2,7 @@ from torchvision import transforms
 
 
 def get_transforms(img_size):
-
+    
     train_tfm = transforms.Compose([
         transforms.Resize((img_size + 32, img_size + 32)),  # slightly larger before crop
         transforms.RandomResizedCrop(img_size, scale=(0.75, 1.0)),  # much more aggressive zoom

@@ -3,18 +3,6 @@ from sklearn.metrics import f1_score
 
 
 def tune_thresholds_per_class(probs, targets, thresholds=None):
-    """
-    Tune one threshold per class using validation probabilities.
-
-    Args:
-        probs: numpy array of shape (N, C), sigmoid outputs
-        targets: numpy array of shape (N, C), binary ground truth labels
-        thresholds: iterable of candidate thresholds
-
-    Returns:
-        best_thresholds: np.array of shape (C,)
-        best_f1s: np.array of shape (C,)
-    """
     if thresholds is None:
         thresholds = np.arange(0.05, 0.96, 0.05)
 
@@ -47,33 +35,12 @@ def tune_thresholds_per_class(probs, targets, thresholds=None):
 
 
 def predict_with_thresholds(probs, thresholds):
-    """
-    Apply per-class thresholds.
-
-    Args:
-        probs: numpy array of shape (N, C)
-        thresholds: np.array of shape (C,)
-
-    Returns:
-        preds: numpy array of shape (N, C)
-    """
     probs = np.asarray(probs)
     thresholds = np.asarray(thresholds).reshape(1, -1)
     return (probs >= thresholds).astype(int)
 
 
 def evaluate_with_thresholds(probs, targets, thresholds):
-    """
-    Compute multilabel metrics using per-class thresholds.
-
-    Args:
-        probs: numpy array of shape (N, C)
-        targets: numpy array of shape (N, C)
-        thresholds: np.array of shape (C,)
-
-    Returns:
-        dict with macro_f1, micro_f1, exact_match, per_class_f1, preds
-    """
     targets = np.asarray(targets).astype(int)
     preds = predict_with_thresholds(probs, thresholds)
 
@@ -92,18 +59,6 @@ def evaluate_with_thresholds(probs, targets, thresholds):
 
 
 def threshold_report(label_cols, base_per_class_f1, tuned_per_class_f1, best_thresholds):
-    """
-    Create a clean per-class summary table.
-
-    Args:
-        label_cols: list of class names
-        base_per_class_f1: F1 scores at default threshold
-        tuned_per_class_f1: F1 scores after tuning
-        best_thresholds: tuned thresholds
-
-    Returns:
-        list of dict rows
-    """
     rows = []
     for i, label in enumerate(label_cols):
         rows.append({

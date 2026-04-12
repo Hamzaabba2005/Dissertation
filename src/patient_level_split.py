@@ -1,6 +1,5 @@
 from sklearn.model_selection import GroupShuffleSplit
 
-
 def patient_level_split(samples, val_size=0.2, seed=42):
     groups = [s["patient_id"] for s in samples]
 
