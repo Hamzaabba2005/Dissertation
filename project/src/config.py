@@ -2,7 +2,7 @@ import torch
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
-LABEL_COLS = ["Normal", "Diabetes", "Glaucoma", "Cataract", "AMD", "Hypertension", "Myopia", "Other"]
+LABEL_COLS = ["N", "D", "G", "C", "A", "H", "M", "O"]
 
 IMG_SIZE = 224
 TRAIN_BS = 16
