@@ -30,6 +30,11 @@ Dataset in the /data folder
 6. The first cell will automatically clone the repo to get the source modules
 7. Set `KAGGLE = True` (this is the default)
 8. Run all cells — free GPU is available on Kaggle
+9. Once training is complete, run the Export Outputs cell at the bottom of the notebook
+10. Go to the Output panel on the right side of Kaggle
+11. Download the zip file for that model
+12. Extract the zip and copy the _eval_data.pkl file into your local checkpoints/ folder
+13. Repeat for each model, then run comparison.ipynb locally
 
 ## Running Locally
 1. Install dependencies: pip install -r requirements.txt
@@ -67,4 +72,3 @@ seaborn
 Pillow
 scikit-learn
 
-## OneDrive
