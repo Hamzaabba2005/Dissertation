@@ -19,6 +19,38 @@ https://www.kaggle.com/datasets/andrewmvd/ocular-disease-recognition-odir5k
 
 Dataset in the /data folder
 
+## Folder Structure
+project/
+notebooks/
+EfficientNet-B0.ipynb
+ResNet18.ipynb
+ResNet50.ipynb
+CustomCNN.ipynb
+comparison.ipynb
+project/
+src/
+config.py
+reproducibility.py
+auto_detect.py
+build_samples.py
+patient_level_split.py
+transforms_config.py
+dataset.py
+class_weights.py
+model.py
+thresholds.py
+checkpoints/
+efficientnet_b0_outputs/
+resnet18_outputs/
+resnet50_outputs/
+custom_cnn_outputs/
+data/
+ODIR-5K
+full_df.csv
+preprocessed_images/
+requirements.txt
+README.md
+
 ## Running on Kaggle (Recommended)
 
 1. Go to kaggle.com and create a free account
